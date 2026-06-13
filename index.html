@@ -1,12 +1,183 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feliz Cumpleaños Vero</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Segoe UI,Tahoma,sans-serif;
+ background:#faf7fc;color:#2e2e2e;overflow-x:hidden;
+}
+.section{display:none;min-height:100vh;padding:20px}
+.active{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero{
+ background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url('1.avif');
+ background-size:cover;
+ background-position:center;
+ color:white;
+ text-align:center;
+}
+.hero h1{font-size:3rem;margin:.2em}
+.quote{font-style:italic;max-width:700px}
+.btn{
+ background:linear-gradient(90deg,#cdb4db,#cfe1b9);
+ color:#222;
+ padding:14px 28px;
+ border:none;
+ border-radius:30px;
+ cursor:pointer;
+ font-size:1rem;
+ font-weight:bold;
+}
+.content{
+ max-width:900px;
+ margin:auto;
+ text-align:center;
+}
+.cards{
+ display:flex;
+ gap:20px;
+ flex-wrap:wrap;
+ justify-content:center;
+ margin-top:20px;
+}
+.card{
+ background:white;
+ border-radius:20px;
+ overflow:hidden;
+ max-width:420px;
+ box-shadow:0 10px 25px rgba(0,0,0,.12)
+}
+.card img{
+ width:100%;
+ height:220px;
+ object-fit:cover
+}
+.card-content{
+ padding:20px
+}
+.choice{
+ margin-top:15px
+}
+.final{
+ text-align:center;
+ max-width:800px;
+ margin:auto;
+}
+.petal{
+ position:fixed;
+ top:-20px;
+ opacity:.4;
+ animation:fall linear infinite;
+}
+@keyframes fall{
+ from{transform:translateY(-20px)}
+ to{transform:translateY(110vh)}
+}
+</style>
 </head>
 <body>
-<h1>Prueba</h1>
+
+<div id="s1" class="section active hero">
+ <p class="quote">🌸 "Como las orquídeas, cada persona florece a su propio ritmo." 🌸</p>
+ <h1>Feliz Cumpleaños, Vero ✨</h1>
+ <button class="btn" onclick="show('s2')">Descubrir mi regalo</button>
+</div>
+
+<div id="s2" class="section">
+ <div class="content">
+ <h2>💜 Un detalle especial</h2>
+ <p>Hoy no queremos regalarte simplemente algo material.</p>
+ <p>Queremos regalarte un momento para ti, una experiencia que puedas disfrutar y recordar con cariño.</p>
+ <p>Por eso hemos preparado algo especial.</p>
+ <p>Tómate un momento, disfruta el recorrido y descubre cuál de estas experiencias conecta más contigo.</p>
+ <p><b>Nosotros nos encargaremos del resto. 💜</b></p>
+ <button class="btn" onclick="show('s3')">Ver experiencias</button>
+ </div>
+</div>
+
+<div id="s3" class="section">
+ <div class="content">
+ <h2>🎁 Elige tu experiencia</h2>
+
+ <div class="cards">
+
+  <div class="card">
+   <img src="2.avif" alt="Experiencia Spa">
+   <div class="card-content">
+    <h3>🌿 Experiencia Spa</h3>
+    <p>Un espacio para desconectarte, relajarte y dedicarte un momento solo para ti.</p>
+    <p>Basado en técnicas de masaje sueco, esta experiencia combina movimientos suaves y una presión ligera a media para promover bienestar y relajación.</p>
+    <button class="btn choice" onclick="selectGift('Spa 🌿')">
+      Quiero esta experiencia
+    </button>
+   </div>
+  </div>
+
+  <div class="card">
+   <img src="3.avif" alt="Carta Astral">
+   <div class="card-content">
+    <h3>🌙 Carta Astral</h3>
+    <p>Una experiencia personalizada para descubrir aspectos únicos de tu personalidad, talentos y propósito.</p>
+    <p>Esta experiencia llegó a nuestras manos gracias a una persona cercana, quien encontró en ella una guía valiosa durante uno de los momentos más difíciles de su vida.</p>
+    <button class="btn choice" onclick="selectGift('Carta Astral 🌙')">
+      Quiero esta experiencia
+    </button>
+   </div>
+  </div>
+
+ </div>
+ </div>
+</div>
+
+<div id="s4" class="section">
+ <div class="final">
+  <h2>✨ Excelente elección ✨</h2>
+  <p>Gracias por compartirla con nosotros.</p>
+  <p>Ahora déjanos encargarnos del resto.</p>
+  <p>Esperamos que esta experiencia te acompañe de una manera especial.</p>
+
+  <h3>Con cariño,</h3>
+  <p><b>Cristopher, Karla y Marisol ❤️</b></p>
+
+  <p><i>PD: No importa cuál hayas elegido. Lo importante es que este regalo fue pensado con mucho cariño para ti. 💜</i></p>
+
+  <button class="btn" onclick="sendWhatsApp()">
+   Confirmar mi elección 💜
+  </button>
+ </div>
+</div>
+
+<script>
+let gift='';
+
+function show(id){
+ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function selectGift(g){
+ gift=g;
+ show('s4');
+}
+
+function sendWhatsApp(){
+ const msg=encodeURIComponent("Hola 😊 Soy Vero y he elegido la experiencia: " + gift);
+ window.location.href="https://wa.me/573007073778?text="+msg;
+}
+
+for(let i=0;i<20;i++){
+ let p=document.createElement('div');
+ p.className='petal';
+ p.innerHTML='🌸';
+ p.style.left=Math.random()*100+'vw';
+ p.style.animationDuration=(8+Math.random()*8)+'s';
+ p.style.fontSize=(12+Math.random()*18)+'px';
+ document.body.appendChild(p);
+}
+</script>
+
 </body>
 </html>
